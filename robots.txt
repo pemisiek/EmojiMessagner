@@ -1,0 +1,3 @@
+User-agent: *
+Sitemap: http://www.mpcoding.pl/sitemap.xml
+Allow: /
