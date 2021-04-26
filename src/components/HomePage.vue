@@ -193,24 +193,24 @@
                     <form @submit.prevent="sendContactMessage()" id="contactForm" v-if="show_contact">
                         <input
                             type="email"
-                            v-model="email"
+                            v-model="form.email"
                             placeholder="E-mail (example@test.com)"
                             class="form-control"
                             /><span>Wymagane</span><br>
                         <input 
                             type="text"
-                            v-model="number"
+                            v-model="form.number"
                             placeholder="Numer telefonu (+48 XXX XXX XXX)"
                             class="form-control"
                             /><span>Wymagane</span><br>
                         <input
                             type="text"
-                            v-model="name"
+                            v-model="form.name"
                             placeholder="Imię i nazwisko (min. 5 znaków)"
                             class="form-control"
                             /><span>Wymagane</span><br>
                         <textarea 
-                            v-model="message" 
+                            v-model="form.message" 
                             placeholder="Opisz swój problem lub zakres materiału (min. 10 znaków)"
                             class="form-control"
                         ></textarea><span>Wymagane</span><br>
@@ -228,17 +228,21 @@
 </template>
 
 <script>
-
+const querystring = require('querystring')
+const axios = require('axios')
 export default {
   name: 'HomePage',
   data () {
     return {
-      email: '',
-      message: '',
+      
       notice: '',
-      number: '',
-      name: '',
-
+      
+      form: {
+        email: '',
+        message: '',
+        number: '',
+        name: ''
+      },
       show_contact: true,
 
       opinions: [
@@ -286,22 +290,21 @@ export default {
   },
   methods: {
         sendContactMessage() {
-          if(!this.validEmail(this.email)) {
+          if(!this.validEmail(this.form.email)) {
               this.notice = 'Podany email jest nieprawidłowy'
-          } else if(!this.validPhoneNumber(this.number)) {
+          } else if(!this.validPhoneNumber(this.form.number)) {
               this.notice = 'Podany numer telefonu jest nieprawidłowy'
-          } else if (this.name.length < 5) {
+          } else if (this.form.name.length < 5) {
               this.notice = 'Twoje imie i nazwisko nie zostało wprowadzone'
-          } else if (this.message.length < 10) {
+          } else if (this.form.message.length < 10) {
               this.notice = 'Twoja wiadomość jest za krótka lub nie została wprowadzona'
           } else {
-              const url = `https://us-central1-rainbow-roses-db3a0.cloudfunctions.net/sendEmail?email_from=${this.email}&message=${this.message}&name=${this.name}&number=${this.number}`
-
-              const requestOptions = {
-                  method: "GET",
-                  headers: {"Content-Type": "application/json"}
-              }
-              fetch(url, requestOptions)
+              
+                axios
+                    .post(
+                        "https://mpcoding.pl/mail.php",
+                        querystring.stringify(this.form)
+                    )
               this.show_contact = false
               this.notice = ''
           }
@@ -314,7 +317,17 @@ export default {
         var re = /^((?:\+|00)[17](?: |\-)?|(?:\+|00)[1-9]\d{0,2}(?: |\-)?|(?:\+|00)1\-\d{3}(?: |\-)?)?(0\d|\([0-9]{3}\)|[1-9]{0,3})(?:((?: |\-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |\-)[0-9]{3}(?: |\-)[0-9]{4})|([0-9]{7}))$/;
         return re.test(number)
     }
-  }
+  },
+            metaInfo: {
+              title: 'Home | mpcoding.pl',
+              titleTemplate: null,
+              meta: [
+                { charset: 'utf-8' },
+                { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+                { name: 'description', content: 'Send messages wrote using emojis! Insert your text and generate your emoji message! Send it to your friends! Use your creativity! Generate your message, NOW' },
+                { name: 'keywords', content: 'MP, MP coding, coding, code, korepetycje, informatyka, IT, programowanie, wsparcie, pomocy, szkoła podstawowa, liecum, szkoła zawodowa, zawodowa, zajęcia, zajęcia wyrównujące, zajęcia korygujące, arkusz Excel, C++, python, HTML, CSS, JS, nauka, wiedza, mpcoding, mp, mp coding, pomocy informatyka, pom ocy python, pomocy cpp, cpp, pomocy excel, jak, dlaczego, działa, nie działa' },
+              ]
+            }
 }
 </script>
 

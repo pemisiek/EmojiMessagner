@@ -2,8 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from '@/components/HomePage'
 import EmojiMessenger from '@/components/EmojiMessenger'
+import Vuemeta from 'vue-meta'
 
 Vue.use(Router)
+Vue.use(Vuemeta)
 
 
 export default new Router({
@@ -33,20 +35,7 @@ export default new Router({
             path: '/contact',
             component: HomePage
           }
-        ],
-        meta: {
-          title: 'MPcoding | Korepetycje z Informatyki',
-          metaTags: [
-            {
-              name: 'description',
-              content: 'Korepetycje z zakresu informatyki i programowania. Zajęcia przeznaczone dla uczniów szkół podstawowych oraz liceum obejmują: pakiet MS office, język python, język c++, HTML, CSS & JS.'
-            },
-            {
-              property: 'og:description',
-              content: 'Korepetycje z zakresu informatyki i programowania. Zajęcia przeznaczone dla uczniów szkół podstawowych oraz liceum obejmują: pakiet MS office, język python, język c++, HTML, CSS & JS.'
-            }
-          ]
-        } 
+        ]
       },
       {
         path: '/emoji-messenger',
@@ -61,20 +50,7 @@ export default new Router({
             path: '/guide',
             component: EmojiMessenger
           }
-        ],
-        meta: {
-          title: 'Emoji Messenger | MPcoding',
-          metaTags: [
-            {
-              name: 'description',
-              content: 'Emoji message generator. Convert your text into a string of emoji and send it to your Friend. Create awesome and creative text using this simple generator. '
-            },
-            {
-              property: 'og:description',
-              content: 'Emoji message generator. Convert your text into a string of emoji and send it to your Friend. Create awesome and creative text using this simple generator.'
-            }
-          ]
-        }
+        ]
       }
     ]
 })

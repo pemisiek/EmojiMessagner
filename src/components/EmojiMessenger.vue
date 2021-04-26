@@ -25,6 +25,16 @@
                   <li><b>Step 5: </b>Send a message to your friend! Enjoy!</li>
                 </ul>
               </div>
+              <h4>Use one of the examples.</h4>
+              <div class="alert alert-danger cur-p" @click="set('❤', '💗', 'I love you')">
+                (❤, 💗) - I love you
+              </div>
+              <div class="alert alert-info cur-p" @click="set('🌞', '🤍', 'Good morning')">
+                (🌞, 🤍) - Good morning
+              </div>
+              <div class="alert alert-primary cur-p" @click="set('🌙', '✨', 'Good night')">
+                (🌙, ✨) - Good night
+              </div>
             </div>
           </section>
 
@@ -1001,7 +1011,7 @@ export default {
                     },{
                         id: 24,
                         letter: 'Y',
-                        sign: `oooooo\nxoooox\nxoooox\nxoooox\noxooxo\noxooxo\noxooxo\nooxxoo\nooxxoo\n`
+                        sign: `oooooo\nxoooox\nxoooox\noxooxo\noxooxo\nooxxoo\nooxxoo\nooxxoo\nooxxoo\n`
                     },{
                         id: 25,
                         letter: 'Z',
@@ -1263,7 +1273,23 @@ export default {
                 emojiChange() {
                   var test = `oooooo\noxxxxo\nxoooox\nxoooox\nxoooox\nxoooox\nxoooox\nxxxxxx\nxoooox\nxoooox\nxoooox\nxoooox\nxoooox\n`
                   this.visualization = test.replaceAll("o", this.emoji1).replaceAll("x", this.emoji2)
+                },
+                set(emoji2, emoji1, text) {
+                  this.entry = text
+                  this.emoji1 = emoji1
+                  this.emoji2 = emoji2
+                  this.emojiChange()
                 }
+            },
+            metaInfo: {
+              title: 'Emoji Messenger | mpcoding.pl',
+              titleTemplate: null,
+              meta: [
+                { charset: 'utf-8' },
+                { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+                { name: 'description', content: 'Send messages wrote using emojis! Insert your text and generate your emoji message! Send it to your friends! Use your creativity! Generate your message, NOW' },
+                { name: 'keywords', content: 'MP, coding, emoji, message, emoji message, emoji message generator, message generator, emoji generator, mpcoding emoji generator, generator, mpcoding, emoji messenger, messenger, messenger generator' },
+              ]
             }
 }
 </script>
@@ -1284,6 +1310,9 @@ i {
     font-style: none;
     font-size: 23px;
     color:rgb(40,40,40);
+}
+.cur-p {
+  cursor: pointer;
 }
 
 /* welcome */
